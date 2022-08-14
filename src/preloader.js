@@ -46,10 +46,10 @@ function pullAndGenerateData() {
   for (i of data) {
     // Good luck reading this code.
     // :3
-    
+
     appendInstance(
       generateInstance(i.name, i.photoSrc, async function () {
-        let password = "";
+        let password = null;
 
         try {
           document.getElementById("textData").innerText = "Connecting...";
@@ -73,7 +73,7 @@ function pullAndGenerateData() {
                 const newWindow = window.open(
                   "extras/password/index.html",
                   "addPage",
-                  "width=400, height=300"
+                  "width=400, height=307"
                 );
 
                 while (!newWindow.closed) {
@@ -124,7 +124,7 @@ function pullAndGenerateData() {
             const wss = new ws.WebSocket(i.url);
 
             wss.on("close", function () {
-              socket.close();
+              socket.end();
             });
   
             socket.on("close", function() {
@@ -174,6 +174,7 @@ function pullAndGenerateData() {
                 server.listen(port);
               }, 1000);
             } else {
+              console.error(e);
               alert("Internal server error\n\n" + e);
             }
           });

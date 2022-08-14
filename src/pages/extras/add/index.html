@@ -21,6 +21,11 @@
       const name = document.getElementsByTagName("input")[0].value;
       const url = document.getElementsByTagName("input")[1].value;
 
+      if (name == "" || url == "") {
+        alert("Please fill in all fields.\n");
+        return;
+      }
+
       const items = localStorage.getItem("data");
       if (!items) {
         localStorage.setItem("data", JSON.stringify([{ name: name, url: url, photoSrc: "icon.png" }]));

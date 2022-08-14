@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build-win": "npm install && npm exec electron-packager ./ OpenPassy --all --overwrite && echo Writing zip file... && tar acf OpenPassy-win32-x64.zip OpenPassy-win32-x64/* && echo Wrote OpenPassy zip file to 'OpenPassy-win32-x64.zip'",
+    "build-linux": "npm install && npm exec electron-packager ./ OpenPassy --all --overwrite && echo Writing zip file... && zip OpenPassy-linux-x64.zip OpenPassy-linux-x64/* && echo Wrote OpenPassy zip file to 'OpenPassy-linux-x64.zip'",
+    "cleanup-win": "del OpenPassy-win32-x64.zip /s /q && rmdir /s /q OpenPassy-win32-x64",
+    "cleanup-linux": "rm -rf OpenPassy-linux-x64.zip OpenPassy-linux-x64"
   },
   "author": "@greysoh <greysoh at protonmail dot ch>",
   "license": "BSD-3-Clause",
   "dependencies": {
     "electron": "^20.0.2",
+    "electron-packager": "^15.5.1",
+    "electron-wix-msi": "^4.0.0",
     "ws": "^8.8.1"
   }
 }
