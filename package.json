@@ -15,8 +15,6 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "electron": "^20.0.2",
-    "electron-packager": "^15.5.1",
-    "electron-wix-msi": "^4.0.0",
     "ws": "^8.8.1"
   }
 }
