@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, ipcMain, BrowserWindow } = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -6,13 +6,34 @@ function createWindow () {
     width: 800,
     height: 600,
     autoHideMenuBar: true,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'src', 'preloader.js'),
       nodeIntegration: true
     }
   })
 
-  win.loadFile(path.join(__dirname, 'src', 'pages', 'index.html'))
+  ipcMain.on("minimize", function () {
+    win.minimize();
+  });
+  
+  ipcMain.on("maximize", function () {
+    win.maximize();
+  });
+  
+  ipcMain.on("unmaximize", function () {
+    win.unmaximize();
+  });
+  
+  ipcMain.on("close", function () {
+    win.close();
+  });
+  
+  win.onBeforeUnload = () => {
+    win.removeAllListeners();
+  }
+
+  win.loadFile(path.join(__dirname, 'src', 'pages', 'index.html'));
 }
 
 app.whenReady().then(() => {

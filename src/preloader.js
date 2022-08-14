@@ -1,6 +1,8 @@
 const net = require("net");
 const ws = require("ws");
 
+const renderUI = require("./renderer.js");
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -202,12 +204,14 @@ function generateButton(name, photoSrc, funcSrc) {
 
   photo.onclick = funcSrc;
 
+  /*
   const text = document.createElement("span");
   text.className = "text";
   text.innerText = name;
+  */
 
   button.appendChild(photo);
-  button.appendChild(text);
+  //button.appendChild(text);
 
   return button;
 }
@@ -217,6 +221,8 @@ function appendButton(button) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  renderUI();
+
   pullAndGenerateData();
   appendButton(
     generateButton("Add", "plus.png", function () {
