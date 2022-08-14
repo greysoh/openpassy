@@ -87,8 +87,6 @@ function pullAndGenerateData() {
 
                 isFrFrReady = true;
               } else if (data == "AcceptResponse Bearer: true") {
-                document.getElementById("textData").innerText =
-                  "Data received. Closing connection...";
                 wss.close();
               } else if (data == "AcceptResponse Bearer: false") {
                 wss.close();
@@ -109,6 +107,8 @@ function pullAndGenerateData() {
 
           const server = net.createServer();
           server.listen(port);
+
+          console.log("Up @ localhost:" + port);
 
           document.getElementById("textData").innerText =
             "Listening on localhost:" + port;
