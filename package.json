@@ -8,8 +8,10 @@
     "start": "electron .",
     "build-win": "npm install && npm exec electron-packager ./ OpenPassy --all --overwrite && echo Writing zip file... && tar acf OpenPassy-win32-x64.zip OpenPassy-win32-x64/* && echo Wrote OpenPassy zip file to 'OpenPassy-win32-x64.zip'",
     "build-linux": "npm install && npm exec electron-packager ./ OpenPassy --all --overwrite && echo Writing zip file... && zip OpenPassy-linux-x64.zip OpenPassy-linux-x64/* && echo Wrote OpenPassy zip file to 'OpenPassy-linux-x64.zip'",
+    "build-mac": "npm install && npm exec electron-packager ./ OpenPassy --all --overwrite && echo Writing zip file... && zip OpenPassy-darwin-x64.zip OpenPassy-darwin-x64/* && echo Wrote OpenPassy zip file to 'OpenPassy-darwin-x64.zip'",
     "cleanup-win": "del OpenPassy-win32-x64.zip /s /q && rmdir /s /q OpenPassy-win32-x64",
-    "cleanup-linux": "rm -rf OpenPassy-linux-x64.zip OpenPassy-linux-x64"
+    "cleanup-linux": "rm -rf OpenPassy-linux-x64.zip OpenPassy-linux-x64",
+    "cleanup-mac": "rm -rf OpenPassy-darwin-x64.zip OpenPassy-darwin-x64"
   },
   "author": "@greysoh <greysoh at protonmail dot ch>",
   "license": "BSD-3-Clause",
