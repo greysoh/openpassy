@@ -43,7 +43,7 @@ function pullAndGenerateData() {
     return;
   }
 
-  for (i of data) {
+  for (const i of data) {
     // Good luck reading this code.
     // :3
 
@@ -153,8 +153,8 @@ function pullAndGenerateData() {
                   } else if (strData == "Passy: Connected") {
                     isReady = true;
 
-                    for (i in bufferPackets) {
-                      wss.send(bufferPackets[i]);
+                    for (const j in bufferPackets) {
+                      wss.send(bufferPackets[j]);
                     }
                   }
                 } else {
