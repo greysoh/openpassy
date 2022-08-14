@@ -219,7 +219,7 @@ function appendButton(button) {
 window.addEventListener("DOMContentLoaded", () => {
   pullAndGenerateData();
   appendButton(
-    generateButton("Add", "icon.png", function () {
+    generateButton("Add", "plus.png", function () {
       const newWindow = window.open(
         "extras/add/index.html",
         "addPage",
