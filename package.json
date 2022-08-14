@@ -1,0 +1,16 @@
+{
+  "name": "pussypuncher",
+  "version": "0.1.0",
+  "description": "Passy client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "@greysoh <greysoh at protonmail dot ch>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "electron": "^20.0.2",
+    "ws": "^8.8.1"
+  }
+}

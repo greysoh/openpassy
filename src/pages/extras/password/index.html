@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pussy Puncher</title>
+    <link rel="stylesheet" href="index.css" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <h3>Input Password</h3>
+    Password: <input placeholder="Sussy32"><br><br>
+
+    <br><br><br><br><br><br><br><br>
+    <button class="button btn" onclick="updateData()" type="button"><span>Done</span></button>
+  </body>
+  <script>
+    function updateData() {
+      localStorage.setItem("passwordData", document.getElementsByTagName("input")[0].value);
+
+      window.close();
+    }
+  </script>
+</html>

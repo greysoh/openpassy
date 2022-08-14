@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pussy Puncher</title>
+    <link rel="stylesheet" href="index.css" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <h3>Add Item</h3>
+    Name: <input placeholder="Nya~" style="position: fixed; width: 200px; left: 60px"><br><br>
+    URL: <input placeholder="ws://sexy.time" style="position: fixed; width: 200px; left: 60px"><br>
+
+    <br><br><br><br><br><br><br>
+    <button class="button btn" onclick="updateData()" type="button"><span>Done</span></button>
+  </body>
+  <script>
+    function updateData() {
+      const name = document.getElementsByTagName("input")[0].value;
+      const url = document.getElementsByTagName("input")[1].value;
+
+      const items = localStorage.getItem("data");
+      if (!items) {
+        localStorage.setItem("data", JSON.stringify([{ name: name, url: url, photoSrc: "icon.png" }]));
+      } else {
+        const data = JSON.parse(items);
+        data.push({ name: name, url: url, photoSrc: "icon.png" });
+        localStorage.setItem("data", JSON.stringify(data));
+      }
+
+      window.close();
+    }
+  </script>
+</html>
