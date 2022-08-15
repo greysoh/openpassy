@@ -39,7 +39,9 @@ module.exports = {
       const i = data[index];
 
       if (i.photoSrc == "photo.png") {
+        console.log("INFO: Converting '%s' to new photo source", i.name);
         data[index].photoSrc = defaultProfile;
+        localStorage.setItem("data", JSON.stringify(data));
       }
 
       module.exports.appendInstance(
