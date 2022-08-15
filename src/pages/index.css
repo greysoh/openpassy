@@ -7,7 +7,7 @@
   background-color: #3b4252;
 }
 
-.footer .text {
+.footer .btm-text {
   position: fixed;
   bottom: 6px;
   left: 3px;
@@ -15,10 +15,10 @@
 
 #app {
   position: fixed;
-  top: 68px;
+  top: 34px;
   left: 1px;
   width: calc(100% - 2px);
-  height: calc(100% - 100px);
+  height: calc(100% - 66px);
   background-color: #2e3440;
   
   border-radius: 10px;
@@ -43,27 +43,30 @@
 }
 
 .header {
-  position: fixed;
-  top: 32px;
-  left: 1px;
-  width: calc(100% - 10px);
-  height: 36px;
+  position: absolute;
 
-  width: 100%;
+  bottom: -12px;
+  left: auto;
+  right: -1px;
+  height: 36px;
 }
 
 .header .header-button {
-  align-items: center;
+  display: inline-flex;
 
-  display: flex;
   padding: 4px;
 }
 
+.header .header-button:hover {
+  background-color: #2e3440;
+}
+
 .header .header-button .photo {
-  width: 29px;
-  height: 29px;
+  width: 24px;
+  height: 24px;
 }
 
 .header .header-button .text {
   padding-left: 8px;
+  font-size: 16px;
 }

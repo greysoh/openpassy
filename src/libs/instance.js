@@ -56,9 +56,14 @@ module.exports = {
     photo.className = "photo";
     photo.src = photoSrc;
   
-    photo.onclick = funcSrc;
-  
+    button.onclick = funcSrc;
+
+    const text = document.createElement("span");
+    text.innerText = name;
+    text.className = "text";
+
     button.appendChild(photo);
+    button.appendChild(text);
   
     return button;
   },
