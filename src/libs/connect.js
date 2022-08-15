@@ -1,6 +1,8 @@
 const net = require("net");
 const ws = require("ws");
 
+const calcHeight = require("./calcHeight.js");
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -37,7 +39,7 @@ module.exports = (i) => {
             const newWindow = window.open(
               "extras/password/index.html",
               "addPage",
-              "width=400, height=307"
+              "width=400, height=" + calcHeight(300)
             );
 
             while (!newWindow.closed) {

@@ -1,5 +1,20 @@
 html {
   font-family: system-ui, BlinkMacSystemFont;
+  background-color: #434c5e;
+  color: white;
+
+  user-select: none;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid #ecf0f1;
+  background-color: #2e3440;
+  color: #ecf0f1;
+  padding: 4px;
+  margin-bottom: 4px;
+
+  user-select: auto;
 }
 
 .button {
@@ -21,14 +36,14 @@ html {
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
   
-  background-color: #2ecc71;
+  background-color: #3b4252;
   color: #ecf0f1;
   
   transition: background-color .3s;
 }
 
 .btn:hover, .btn:focus {
-  background-color: #27ae60;
+  background-color: #2e3440;
 }
 
 .btn > * {
