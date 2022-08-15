@@ -39,7 +39,7 @@ module.exports = (i) => {
             const newWindow = window.open(
               "extras/password/index.html",
               "addPage",
-              "width=400, height=" + calcHeight(300)
+              "width=400, height=" + calcHeight(308)
             );
 
             while (!newWindow.closed) {
