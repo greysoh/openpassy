@@ -69,7 +69,8 @@ module.exports = (i) => {
         await sleep(100);
       }
 
-      const port = getRandomInt(10000, 65535);
+      console.log(i.defaultPort);
+      const port = i.defaultPort == "" ? getRandomInt(10000, 65535) : i.defaultPort;
 
       const server = net.createServer();
       server.listen(port);

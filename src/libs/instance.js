@@ -44,6 +44,13 @@ module.exports = {
         localStorage.setItem("data", JSON.stringify(data));
       }
 
+      if (typeof i.defaultPort != "string" && typeof i.defaultPort != "number") {
+        console.log("INFO: Converting '%s' to use new port system", i.name);
+        
+        data[index].defaultPort = "";
+        localStorage.setItem("data", JSON.stringify(data));
+      }
+
       module.exports.appendInstance(
         module.exports.generateInstance(i.name, data[index].photoSrc, connectServer(i))
       );

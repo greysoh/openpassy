@@ -12,10 +12,11 @@
     <h3>Add Item</h3>
     Name: <input class="input" placeholder="Nya~" style="position: absolute; width: 200px; left: 60px"><br><br>
     URL: <input class="input" placeholder="ws://sexy.time" style="position: absolute; width: 200px; left: 60px"><br><br>
+    Port: <input type="number" class="input" placeholder="" style="position: absolute; width: 200px; left: 60px"><br><br>
     (Optional) Photo:<br><br>
     <input type="file" id="icon" name="Icon" accept="image/png, image/jpeg">
        
-    <br><br><br><br>
+    <br><br>
     <button class="button btn" onclick="updateData()" type="button"><span>Done</span></button>
   </body>
   <script>
@@ -28,6 +29,8 @@
 
       const name = document.getElementsByTagName("input")[0].value;
       const url = document.getElementsByTagName("input")[1].value;
+
+      const defaultPort = document.getElementsByClassName("input")[2].value;
 
       const imageElem = document.getElementById("icon");
 
@@ -65,11 +68,12 @@
       }
       
       const items = localStorage.getItem("data");
+
       if (!items) {
-        localStorage.setItem("data", JSON.stringify([{ name: name, url: url, photoSrc: profileData }]));
+        localStorage.setItem("data", JSON.stringify([{ name: name, url: url, defaultPort: defaultPort, photoSrc: profileData }]));
       } else {
         const data = JSON.parse(items);
-        data.push({ name: name, url: url, photoSrc: profileData });
+        data.push({ name: name, url: url, defaultPort: defaultPort, photoSrc: profileData });
         localStorage.setItem("data", JSON.stringify(data));
       }
 
