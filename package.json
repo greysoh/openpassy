@@ -16,8 +16,10 @@
   "author": "@greysoh <greysoh at protonmail dot ch>",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "electron": "^20.0.2",
-    "electron-packager": "^15.5.1",
     "ws": "^8.8.1"
+  },
+  "devDependencies": {
+    "electron": "^20.2.0",
+    "electron-packager": "^16.0.0"
   }
 }
