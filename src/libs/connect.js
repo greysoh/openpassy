@@ -16,143 +16,139 @@ function sleep(ms) {
 module.exports = (i) => {
   return async function () {
     let password = null;
+    let isFrFrReady = false;
 
-    try {
-      document.getElementById("textData").innerText = "Connecting...";
+    let validLogin = true;
 
-      let isFrFrReady = false;
+    document.getElementById("textData").innerText = "Connecting...";
 
-      const wss = new ws.WebSocket(i.url);
-      wss.on("open", async function () {
-        document.getElementById("textData").innerText =
-          "Connected. Running tests...";
+    const wss = new ws.WebSocket(i.url);
+    wss.on("open", async function () {
+      document.getElementById("textData").innerText =
+        "Connected. Running tests...";
 
-        wss.send("Accept: IsPassedWS");
+      wss.send("Accept: IsPassedWS");
 
-        wss.on("message", async function (data) {
-          const strData = data.toString();
+      wss.on("message", async function (data) {
+        const strData = data.toString();
 
-          if (data == "AcceptResponse IsPassedWS: true") {
-            document.getElementById("textData").innerText =
-              "Requesting data...";
+        if (data == "AcceptResponse IsPassedWS: true") {
+          document.getElementById("textData").innerText = "Requesting data...";
 
-            const newWindow = window.open(
-              "extras/password/index.html",
-              "addPage",
-              "width=400, height=" + calcHeight(308)
-            );
+          const newWindow = window.open(
+            "extras/password/index.html",
+            "addPage",
+            "width=400, height=" + calcHeight(308)
+          );
 
-            while (!newWindow.closed) {
-              await sleep(100);
-            }
-
-            password = localStorage.getItem("passwordData");
-            localStorage.removeItem("passwordData");
-
-            wss.send("Accept: Bearer " + password);
-
-            isFrFrReady = true;
-          } else if (data == "AcceptResponse Bearer: true") {
-            wss.close();
-          } else if (data == "AcceptResponse Bearer: false") {
-            wss.close();
-            alert("Invalid password!\n\n");
-
-            throw "SafeException: Invalid password";
+          while (!newWindow.closed) {
+            await sleep(100);
           }
 
-          console.log(strData);
-        });
-      });
-
-      while (!isFrFrReady) {
-        await sleep(100);
-      }
-
-      console.log(i.defaultPort);
-      const port = i.defaultPort == "" ? getRandomInt(10000, 65535) : i.defaultPort;
-
-      const server = net.createServer();
-      server.listen(port);
-
-      console.log("Up @ localhost:" + port);
-
-      document.getElementById("textData").innerText =
-        "Listening on localhost:" + port;
-
-      server.on("connection", function (socket) {
-        console.log(
-          "CONNECTED: " + socket.remoteAddress + ":" + socket.remotePort
-        );
-
-        let isReady = false;
-        const bufferPackets = [];
-
-        const wss = new ws.WebSocket(i.url);
-
-        wss.on("close", function () {
-          socket.end();
-        });
-
-        socket.on("close", function () {
-          wss.close();
-        });
-
-        wss.on("open", function () {
-          socket.on("data", (data) => {
-            if (!isReady) {
-              bufferPackets.push(data);
-            } else {
-              console.log(data);
-              wss.send(data);
-            }
-          });
-
-          wss.on("message", function (data) {
-            const strData = data.toString();
-            console.log(strData);
-
-            if (!isReady) {
-              if (strData == "AcceptResponse Bearer: false") {
-                socket.end();
-                wss.close();
-                alert("Invalid password!\n\n");
-              } else if (strData == "Passy: Connected") {
-                isReady = true;
-
-                for (const j in bufferPackets) {
-                  wss.send(bufferPackets[j]);
-                }
-              }
-            } else {
-              socket.write(data);
-            }
-          });
+          password = localStorage.getItem("passwordData");
+          localStorage.removeItem("passwordData");
 
           wss.send("Accept: Bearer " + password);
-        });
-      });
+        } else if (strData.toString().startsWith("AcceptResponse Bearer")) {
+          const check = strData.split(": ")[1] == "true";
 
-      server.on("error", (e) => {
-        if (e.code === "EADDRINUSE") {
-          console.log("Address in use, retrying...");
-          setTimeout(() => {
-            server.close();
-            server.listen(port);
-          }, 1000);
-        } else {
-          console.error(e);
-          alert("Internal server error\n\n" + e);
+          wss.close();
+
+          if (!check) {
+            alert("Invalid password!\n\n");
+
+            validLogin = false;
+            document.getElementById("textData").innerText = "No command.";
+          }
+          
+          isFrFrReady = true;
         }
       });
-    } catch (e) {
-      if (e.toString().startsWith("SafeException")) {
-        console.warn(e);
-        return;
-      }
+    });
 
-      console.error(e);
-      alert(`Error!\n${e}\n`);
+    while (!isFrFrReady) {
+      await sleep(100);
     }
+
+    if (!validLogin) {
+      return;
+    }
+
+    const port =
+      i.defaultPort == "" ? getRandomInt(10000, 65535) : i.defaultPort;
+
+    const server = net.createServer();
+    server.listen(port);
+
+    console.log("Up @ localhost:" + port);
+
+    document.getElementById("textData").innerText =
+      "Listening on localhost:" + port;
+
+    server.on("connection", function (socket) {
+      console.log(
+        "CONNECTED: " + socket.remoteAddress + ":" + socket.remotePort
+      );
+
+      let isReady = false;
+      const bufferPackets = [];
+
+      const wss = new ws.WebSocket(i.url);
+
+      wss.on("close", function () {
+        socket.end();
+      });
+
+      socket.on("close", function () {
+        wss.close();
+      });
+
+      wss.on("open", function () {
+        socket.on("data", (data) => {
+          if (!isReady) {
+            bufferPackets.push(data);
+          } else {
+            wss.send(data);
+          }
+        });
+
+        wss.on("message", function (data) {
+          const strData = data.toString();
+
+          if (!isReady) {
+            if (strData == "AcceptResponse Bearer: false") {
+              wss.close();
+              server.close();
+              
+              alert("Invalid password!\n\n");
+            } else if (strData == "Passy: Connected") {
+              isReady = true;
+
+              for (const j in bufferPackets) {
+                wss.send(bufferPackets[j]);
+              }
+            }
+          } else {
+            socket.write(data);
+          }
+        });
+
+        wss.send("Accept: Bearer " + password);
+      });
+    });
+
+    server.on("error", (e) => {
+      if (e.code === "EADDRINUSE") {
+        console.log("Address in use, retrying...");
+
+        setTimeout(() => {
+          server.close();
+          server.listen(port);
+        }, 1000);
+      } else {
+        console.error(e);
+        alert("Internal server error\n\n" + e);
+      }
+    });
   };
 };
