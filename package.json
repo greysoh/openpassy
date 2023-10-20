@@ -19,7 +19,7 @@
     "ws": "^8.8.1"
   },
   "devDependencies": {
-    "electron": "^20.2.0",
+    "electron": "^27.0.1",
     "electron-packager": "^16.0.0"
   }
 }
